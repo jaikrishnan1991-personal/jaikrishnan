@@ -6,7 +6,6 @@ import { ChefHat, Cpu, Cloud, Sparkles, Check } from "lucide-react";
 
 import braneUws1 from "@/assets/products/brane-uws.jpg";
 import braneUws2 from "@/assets/products/brane-uws-2.jpg";
-import rakakaModelN from "@/assets/products/rakaka-model-n.jpg";
 import rakakaHero from "@/assets/products/rakaka-hero.jpg";
 import frshlyDispenser from "@/assets/products/frshly-dispenser.png";
 
@@ -17,7 +16,7 @@ const featuredProduct = {
   company: "Rakaka Food Technology",
   tagline: "Simplify Cooking",
   description: "Built an IoT-enabled autonomous cooking system from scratch — spanning mechanical design, embedded systems, software orchestration, and user experience. A patented, modular architecture enabling effortless meal creation.",
-  images: [rakakaHero, rakakaModelN],
+  images: [rakakaHero],
   tags: ["Food-Tech", "IoT", "AI/ML", "Patented", "Full-Stack Product"],
   features: [
     {
