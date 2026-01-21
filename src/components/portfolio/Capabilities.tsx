@@ -1,4 +1,4 @@
-import { Compass, Layout, Rocket, Cpu, LucideIcon } from "lucide-react";
+import { Compass, Layout, Rocket, Cpu, Boxes, LucideIcon } from "lucide-react";
 import { portfolioData, CapabilityCategory } from "@/data/portfolio-data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -7,6 +7,7 @@ const iconMap: Record<string, LucideIcon> = {
   layout: Layout,
   rocket: Rocket,
   cpu: Cpu,
+  boxes: Boxes,
 };
 
 function CapabilityCard({ category }: { category: CapabilityCategory }) {
