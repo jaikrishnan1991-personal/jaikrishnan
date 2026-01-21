@@ -10,6 +10,7 @@ import {
   Languages,
   Footer,
 } from "@/components/portfolio";
+import { Products } from "@/components/portfolio/Products";
 
 const Index = () => {
   return (
@@ -19,6 +20,7 @@ const Index = () => {
         <main>
           <Hero />
           <Philosophy />
+          <Products />
           <Capabilities />
           <Experience />
           <Patents />
