@@ -1,19 +1,20 @@
 import { ArrowDown, Mail, Linkedin, Phone } from "lucide-react";
 import { portfolioData } from "@/data/portfolio-data";
 import { Button } from "@/components/ui/button";
+import heroBg from "@/assets/hero-bg.jpg";
 
 export function Hero() {
   const { personal } = portfolioData;
 
   return (
-    <section className="min-h-screen flex items-center justify-center hero-gradient relative overflow-hidden">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-[0.03]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
-          backgroundSize: '40px 40px'
-        }} />
-      </div>
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Background image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${heroBg})` }}
+      />
+      {/* Overlay for light mode readability */}
+      <div className="absolute inset-0 bg-background/80 dark:bg-background/60" />
 
       <div className="container-custom relative z-10">
         <div className="max-w-4xl mx-auto text-center">
