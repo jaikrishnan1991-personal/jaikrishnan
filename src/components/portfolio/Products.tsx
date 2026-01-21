@@ -17,6 +17,10 @@ const featuredProduct = {
   tagline: "Simplify Cooking",
   description: "Built an IoT-enabled autonomous cooking system from scratch — spanning mechanical design, embedded systems, software orchestration, and user experience. A patented, modular architecture enabling effortless meal creation.",
   images: [rakakaHero],
+  videos: [
+    { id: "bFxjtevRHGw", title: "Rakaka Demo" },
+    { id: "elfl-DESBgk", title: "Rakaka Overview" },
+  ],
   tags: ["Food-Tech", "IoT", "AI/ML", "Patented", "Full-Stack Product"],
   features: [
     {
@@ -136,51 +140,121 @@ function ProductCard({ product }: { product: typeof otherProducts[0] }) {
 
 function FeaturedProduct() {
   const [selectedImage, setSelectedImage] = useState(0);
+  const [activeTab, setActiveTab] = useState<'image' | 'video'>('image');
+  const [selectedVideo, setSelectedVideo] = useState(0);
 
   return (
     <div className="mb-16">
       <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-        {/* Image Section */}
+        {/* Media Section */}
         <div className="relative">
-          <Dialog>
-            <DialogTrigger asChild>
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-secondary cursor-zoom-in group">
-                <img
-                  src={featuredProduct.images[selectedImage]}
-                  alt={featuredProduct.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground">
-                  Featured Project
-                </Badge>
-              </div>
-            </DialogTrigger>
-            <DialogContent className="max-w-5xl p-0 bg-transparent border-none">
-              <img
-                src={featuredProduct.images[selectedImage]}
-                alt={featuredProduct.title}
-                className="w-full h-auto rounded-lg"
-              />
-            </DialogContent>
-          </Dialog>
-          
-          {/* Thumbnail selector */}
-          <div className="flex gap-3 mt-4 justify-center">
-            {featuredProduct.images.map((img, idx) => (
-              <button
-                key={idx}
-                onClick={() => setSelectedImage(idx)}
-                className={`w-20 h-14 rounded-lg overflow-hidden border-2 transition-all ${
-                  idx === selectedImage 
-                    ? "border-primary ring-2 ring-primary/30" 
-                    : "border-border hover:border-primary/50"
-                }`}
-              >
-                <img src={img} alt="" className="w-full h-full object-cover" />
-              </button>
-            ))}
+          {/* Tab Switcher */}
+          <div className="flex gap-2 mb-4">
+            <button
+              onClick={() => setActiveTab('image')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'image'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-secondary text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              Images
+            </button>
+            <button
+              onClick={() => setActiveTab('video')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'video'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-secondary text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              Videos
+            </button>
           </div>
+
+          {activeTab === 'image' ? (
+            <>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-secondary cursor-zoom-in group">
+                    <img
+                      src={featuredProduct.images[selectedImage]}
+                      alt={featuredProduct.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground">
+                      Featured Project
+                    </Badge>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="max-w-5xl p-0 bg-transparent border-none">
+                  <img
+                    src={featuredProduct.images[selectedImage]}
+                    alt={featuredProduct.title}
+                    className="w-full h-auto rounded-lg"
+                  />
+                </DialogContent>
+              </Dialog>
+              
+              {/* Thumbnail selector */}
+              {featuredProduct.images.length > 1 && (
+                <div className="flex gap-3 mt-4 justify-center">
+                  {featuredProduct.images.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setSelectedImage(idx)}
+                      className={`w-20 h-14 rounded-lg overflow-hidden border-2 transition-all ${
+                        idx === selectedImage 
+                          ? "border-primary ring-2 ring-primary/30" 
+                          : "border-border hover:border-primary/50"
+                      }`}
+                    >
+                      <img src={img} alt="" className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              <div className="relative aspect-video rounded-2xl overflow-hidden bg-secondary">
+                <iframe
+                  src={`https://www.youtube.com/embed/${featuredProduct.videos[selectedVideo].id}`}
+                  title={featuredProduct.videos[selectedVideo].title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              </div>
+              
+              {/* Video selector */}
+              <div className="flex gap-3 mt-4 justify-center">
+                {featuredProduct.videos.map((video, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setSelectedVideo(idx)}
+                    className={`w-24 h-16 rounded-lg overflow-hidden border-2 transition-all relative ${
+                      idx === selectedVideo 
+                        ? "border-primary ring-2 ring-primary/30" 
+                        : "border-border hover:border-primary/50"
+                    }`}
+                  >
+                    <img 
+                      src={`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`} 
+                      alt={video.title} 
+                      className="w-full h-full object-cover" 
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                      <div className="w-6 h-6 rounded-full bg-white/90 flex items-center justify-center">
+                        <div className="w-0 h-0 border-t-[5px] border-t-transparent border-l-[8px] border-l-black border-b-[5px] border-b-transparent ml-0.5" />
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
         </div>
 
         {/* Content Section */}
