@@ -2,6 +2,11 @@ import { Briefcase, Lightbulb, Wrench, History } from "lucide-react";
 import { portfolioData, Experience as ExperienceType } from "@/data/portfolio-data";
 import { Card, CardContent } from "@/components/ui/card";
 
+// Logo imports
+import knowledgeHubLogo from "@/assets/logos/knowledge-hub-logo.png";
+import braneLogo from "@/assets/logos/brane-logo.png";
+import bodeLogo from "@/assets/logos/bode-logo.png";
+
 const typeConfig = {
   founder: {
     icon: Lightbulb,
@@ -29,9 +34,17 @@ const typeConfig = {
   },
 };
 
+// Map company names to logos
+const companyLogos: Record<string, string> = {
+  "The Knowledge Hub": knowledgeHubLogo,
+  "Brane Group": braneLogo,
+  "Gebr. Bode GmbH": bodeLogo,
+};
+
 function ExperienceCard({ experience, index }: { experience: ExperienceType; index: number }) {
   const config = typeConfig[experience.type];
   const IconComponent = config.icon;
+  const logo = companyLogos[experience.company];
 
   return (
     <div className="relative pl-8 md:pl-12 pb-12 last:pb-0">
@@ -47,14 +60,26 @@ function ExperienceCard({ experience, index }: { experience: ExperienceType; ind
       <Card className={`border-l-4 ${config.borderColor} hover:shadow-md transition-shadow`}>
         <CardContent className="p-6">
           {/* Header */}
-          <div className="flex flex-wrap items-start justify-between gap-2 mb-4">
-            <div>
-              <h3 className="font-display text-xl font-bold text-foreground">
-                {experience.title}
-              </h3>
-              <p className="text-primary font-medium">
-                {experience.company}
-              </p>
+          <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+            <div className="flex items-start gap-4">
+              {/* Company Logo */}
+              {logo && (
+                <div className="w-12 h-12 rounded-lg bg-white dark:bg-white/90 p-2 flex items-center justify-center flex-shrink-0 shadow-sm">
+                  <img 
+                    src={logo} 
+                    alt={experience.company} 
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              )}
+              <div>
+                <h3 className="font-display text-xl font-bold text-foreground">
+                  {experience.title}
+                </h3>
+                <p className="text-primary font-medium">
+                  {experience.company}
+                </p>
+              </div>
             </div>
             <div className="text-right">
               <span className="text-sm text-muted-foreground">
