@@ -1,0 +1,9 @@
+export { Header } from "./Header";
+export { Hero } from "./Hero";
+export { Philosophy } from "./Philosophy";
+export { Capabilities } from "./Capabilities";
+export { Experience } from "./Experience";
+export { Patents } from "./Patents";
+export { Education } from "./Education";
+export { Languages } from "./Languages";
+export { Footer } from "./Footer";
