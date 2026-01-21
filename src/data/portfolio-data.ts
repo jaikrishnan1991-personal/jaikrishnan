@@ -144,7 +144,7 @@ export const portfolioData: PortfolioData = {
   experience: [
     {
       id: "theknowledgehub",
-      title: "Co-Founder & CPO",
+      title: "CPO",
       company: "The Knowledge Hub",
       location: "Hyderabad",
       period: "Jul 2024 – Present",
@@ -186,7 +186,7 @@ export const portfolioData: PortfolioData = {
     },
     {
       id: "frshly",
-      title: "Co-Founder & CTO",
+      title: "Head of Innovations",
       company: "Frshly (Food-tech Startup)",
       location: "Hyderabad",
       period: "Jun 2017 – Jan 2020",
