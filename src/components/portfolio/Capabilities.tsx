@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Compass, Layout, Rocket, Cpu, Boxes, LucideIcon, RotateCcw } from "lucide-react";
 import { portfolioData, CapabilityCategory } from "@/data/portfolio-data";
-
+import { JourneyInfographic } from "./JourneyInfographic";
 const iconMap: Record<string, LucideIcon> = {
   compass: Compass,
   layout: Layout,
@@ -320,8 +320,8 @@ export function Capabilities() {
           </p>
         </motion.div>
 
-        {/* Skills Radar Chart */}
-        <SkillsRadar />
+        {/* Journey Infographic */}
+        <JourneyInfographic />
 
         {/* Interactive Flip Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
