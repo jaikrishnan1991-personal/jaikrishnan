@@ -326,12 +326,14 @@ export function Products() {
         <FeaturedProduct />
 
         {/* Other Products */}
-        <h3 className="font-display text-xl font-semibold text-foreground mb-6 text-center">
-          Other Projects
-        </h3>
         <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
-          {otherProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+          {otherProducts.map((product, index) => (
+            <div key={product.id}>
+              <h3 className="font-display text-lg font-semibold text-foreground mb-4">
+                Project {index + 2}
+              </h3>
+              <ProductCard product={product} />
+            </div>
           ))}
         </div>
       </div>
