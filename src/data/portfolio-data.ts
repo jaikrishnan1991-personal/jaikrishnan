@@ -80,7 +80,7 @@ export const portfolioData: PortfolioData = {
   personal: {
     name: "Jaikrishnan Ganeshan",
     title: "Product Architect",
-    tagline: "Building AI-driven physical & digital systems from first principles — Robotics · AI · Platform Products",
+    tagline: "Building AI-driven physical & digital systems from first principles — across Robotics, AI, and Platform Products",
     location: "Hyderabad, India",
     phone: "+91 9840984314",
     email: "jaikrishnan1991@gmail.com",
