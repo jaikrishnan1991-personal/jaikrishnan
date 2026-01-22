@@ -1,4 +1,4 @@
-import { ArrowDown, Mail, Linkedin, Phone } from "lucide-react";
+import { ArrowDown, Mail, Linkedin, FileDown } from "lucide-react";
 import { portfolioData } from "@/data/portfolio-data";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -92,9 +92,9 @@ export function Hero() {
                   size="lg"
                   className="rounded-full px-8 font-medium"
                 >
-                  <a href={`tel:${personal.phone}`}>
-                    <Phone className="w-4 h-4 mr-2" />
-                    Call
+                  <a href={personal.resumeUrl} target="_blank" rel="noopener noreferrer">
+                    <FileDown className="w-4 h-4 mr-2" />
+                    Resume
                   </a>
                 </Button>
               </div>

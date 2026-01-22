@@ -1,4 +1,4 @@
-import { Mail, Linkedin, Phone, MapPin, ArrowUp } from "lucide-react";
+import { Mail, Linkedin, Phone, MapPin, ArrowUp, FileDown } from "lucide-react";
 import { portfolioData } from "@/data/portfolio-data";
 import { Button } from "@/components/ui/button";
 
@@ -44,6 +44,18 @@ export function Footer() {
                 <a href={personal.linkedin} target="_blank" rel="noopener noreferrer">
                   <Linkedin className="w-4 h-4 mr-2" />
                   View LinkedIn
+                </a>
+              </Button>
+
+              <Button
+                asChild
+                variant="secondary"
+                size="lg"
+                className="rounded-full px-8 font-medium"
+              >
+                <a href={personal.resumeUrl} target="_blank" rel="noopener noreferrer">
+                  <FileDown className="w-4 h-4 mr-2" />
+                  Download Resume
                 </a>
               </Button>
             </div>

@@ -13,6 +13,7 @@ export interface PersonalInfo {
   phone: string;
   email: string;
   linkedin: string;
+  resumeUrl: string;
 }
 
 export interface PhilosophyItem {
@@ -85,6 +86,7 @@ export const portfolioData: PortfolioData = {
     phone: "+91 9840984314",
     email: "jaikrishnan1991@gmail.com",
     linkedin: "https://linkedin.com/in/jaikrishnanganeshan",
+    resumeUrl: "/resume.pdf",
   },
 
   philosophy: [
