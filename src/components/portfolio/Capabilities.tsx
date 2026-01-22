@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Compass, Layout, Rocket, Cpu, Boxes, LucideIcon, RotateCcw } from "lucide-react";
 import { portfolioData, CapabilityCategory } from "@/data/portfolio-data";
 
@@ -153,15 +153,13 @@ function FlipCard({ category, index }: { category: CapabilityCategory; index: nu
           </div>
           
           <div className="flex-1 overflow-y-auto px-6 pb-2">
-            <AnimatePresence>
-              {isFlipped && (
-                <div className="space-y-1">
-                  {category.skills.map((skill, idx) => (
-                    <SkillBar key={skill} skill={skill} delay={idx * 0.05} />
-                  ))}
-                </div>
-              )}
-            </AnimatePresence>
+            {isFlipped && (
+              <div className="space-y-1">
+                {category.skills.map((skill, idx) => (
+                  <SkillBar key={skill} skill={skill} delay={idx * 0.05} />
+                ))}
+              </div>
+            )}
           </div>
           
           <div className="p-4 bg-card border-t border-border/30 rounded-b-2xl flex items-center justify-center gap-2 text-xs text-muted-foreground">
