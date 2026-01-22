@@ -58,6 +58,7 @@ const otherProducts = [
     id: "brane-uws",
     title: "Autonomous Underwater Systems",
     company: "Brane Group",
+    whyItMatters: "Enabled autonomous operation in high-risk maritime environments.",
     description: "Designed and architected autonomous underwater vehicles (AUVs) and unmanned surface vessels (USVs) for maritime operations, integrating AI perception, embedded control systems, and robust mechanical design.",
     impact: "Systems deployed for defence and maritime research applications",
     images: [braneUws2, braneUws1],
@@ -67,6 +68,7 @@ const otherProducts = [
     id: "frshly",
     title: "Smart Food Dispensing System",
     company: "Frshly",
+    whyItMatters: "Transformed commercial food service with zero-touch automation.",
     description: "Led product innovation for smart food dispensing systems with computer-vision-driven interaction flows tightly coupled with embedded hardware behavior.",
     impact: "Enabled 3x faster order fulfillment in pilot deployments",
     images: [frshlyDispenser],
@@ -116,7 +118,7 @@ function ProductCard({ product }: { product: typeof otherProducts[0] }) {
       </div>
 
       <CardContent className="p-6">
-        <div className="flex items-start justify-between gap-4 mb-3">
+        <div className="flex items-start justify-between gap-4 mb-2">
           <div>
             <h3 className="font-display text-xl font-bold text-foreground">
               {product.title}
@@ -124,6 +126,12 @@ function ProductCard({ product }: { product: typeof otherProducts[0] }) {
             <p className="text-primary font-medium text-sm">{product.company}</p>
           </div>
         </div>
+
+        {product.whyItMatters && (
+          <p className="text-sm font-medium text-foreground/80 italic mb-3">
+            {product.whyItMatters}
+          </p>
+        )}
 
         <p className="text-muted-foreground text-sm leading-relaxed mb-3">
           {product.description}
