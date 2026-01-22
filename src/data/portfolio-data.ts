@@ -33,6 +33,7 @@ export interface Experience {
   location: string;
   period: string;
   type: 'founder' | 'leadership' | 'technical' | 'prior';
+  summary: string;
   achievements: string[];
 }
 
@@ -78,8 +79,8 @@ export interface PortfolioData {
 export const portfolioData: PortfolioData = {
   personal: {
     name: "Jaikrishnan Ganeshan",
-    title: "Product-Centric Founder",
-    tagline: "Product-Centric Founder — First-Principles Thinker — Robotics · AI · Platform Products",
+    title: "Product Architect",
+    tagline: "Building AI-driven physical & digital systems from first principles — Robotics · AI · Platform Products",
     location: "Hyderabad, India",
     phone: "+91 9840984314",
     email: "jaikrishnan1991@gmail.com",
@@ -169,6 +170,7 @@ export const portfolioData: PortfolioData = {
       location: "Dubai / India (Remote)",
       period: "Mar 2025 – Present",
       type: "founder",
+      summary: "Redesigning a legacy EdTech platform into an AI-native, outcome-driven learning ecosystem.",
       achievements: [
         "Reframed the product vision of a legacy EdTech platform by identifying core learner and educator pain points and realigning the platform around learning outcomes rather than features.",
         "Led end-to-end product discovery across learner journeys, content architecture, and platform modularity.",
@@ -183,6 +185,7 @@ export const portfolioData: PortfolioData = {
       location: "Hyderabad, India",
       period: "Sep 2023 – Apr 2025",
       type: "leadership",
+      summary: "Led product definition for robotics and medical systems in high-constraint environments.",
       achievements: [
         "Owned product definition for robotics and medical systems operating in high-constraint physical environments.",
         "Translated real-world operational problems into system-level architectures spanning sensors, embedded control, AI perception, and user interfaces.",
@@ -196,6 +199,7 @@ export const portfolioData: PortfolioData = {
       location: "Chennai, India",
       period: "Dec 2018 – Aug 2023",
       type: "founder",
+      summary: "Built and scaled a patented autonomous cooking platform from concept to pilot deployment.",
       achievements: [
         "Identified fundamental inefficiencies in commercial cooking workflows through ground-level observation and first-principles problem analysis.",
         "Conceived and built an autonomous cooking product from scratch — spanning mechanical design, embedded systems, software orchestration, and user experience.",
@@ -211,6 +215,7 @@ export const portfolioData: PortfolioData = {
       location: "Chennai, India",
       period: "Jul 2017 – Nov 2018",
       type: "technical",
+      summary: "Pioneered smart food dispensing systems with computer vision-driven interactions.",
       achievements: [
         "Led product innovation for smart food dispensing systems, balancing reliability, speed, and intuitive user interaction.",
         "Designed computer-vision-driven interaction flows tightly coupled with embedded hardware behavior.",
@@ -223,6 +228,7 @@ export const portfolioData: PortfolioData = {
       location: "Hyderabad, India",
       period: "Sep 2024 – Oct 2024",
       type: "technical",
+      summary: "Freelance product consulting for early-stage technology startups.",
       achievements: [
         "Provided freelance product management consulting for early-stage technology initiatives.",
         "Helped founders translate abstract ideas into structured problem statements, MVP definitions, and product roadmaps.",
@@ -236,6 +242,7 @@ export const portfolioData: PortfolioData = {
       location: "India & Germany",
       period: "2010 – 2017",
       type: "prior",
+      summary: "Built deep foundations in electro-mechanical systems and real-world manufacturing.",
       achievements: [
         "Built strong grounding in electro-mechanical systems, industrial design, and real-world manufacturing constraints — forming the basis for a first-principles product mindset.",
         "Worked across mechanical, electrical, and control systems, developing an intuitive understanding of how physical products behave outside ideal conditions.",

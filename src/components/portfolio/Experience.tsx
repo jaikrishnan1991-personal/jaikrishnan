@@ -79,6 +79,11 @@ function ExperienceCard({ experience, index }: { experience: ExperienceType; ind
                 <p className="text-primary font-medium">
                   {experience.company}
                 </p>
+                {experience.summary && (
+                  <p className="text-sm text-foreground/80 mt-1 font-medium italic">
+                    {experience.summary}
+                  </p>
+                )}
               </div>
             </div>
             <div className="text-right">

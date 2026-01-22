@@ -16,6 +16,7 @@ const featuredProduct = {
   company: "Rakaka Food Technology",
   tagline: "Simplify Cooking",
   description: "Built an IoT-enabled autonomous cooking system from scratch — spanning mechanical design, embedded systems, software orchestration, and user experience. A patented, modular architecture enabling effortless meal creation.",
+  impact: "Deployed across pilot kitchens, reducing manual cooking effort by 80%",
   images: [rakakaHero],
   videos: [
     { id: "bFxjtevRHGw", title: "Rakaka Demo" },
@@ -58,6 +59,7 @@ const otherProducts = [
     title: "Autonomous Underwater Systems",
     company: "Brane Group",
     description: "Designed and architected autonomous underwater vehicles (AUVs) and unmanned surface vessels (USVs) for maritime operations, integrating AI perception, embedded control systems, and robust mechanical design.",
+    impact: "Systems deployed for defence and maritime research applications",
     images: [braneUws2, braneUws1],
     tags: ["Robotics", "AI", "Embedded Systems", "Maritime"],
   },
@@ -66,6 +68,7 @@ const otherProducts = [
     title: "Smart Food Dispensing System",
     company: "Frshly",
     description: "Led product innovation for smart food dispensing systems with computer-vision-driven interaction flows tightly coupled with embedded hardware behavior.",
+    impact: "Enabled 3x faster order fulfillment in pilot deployments",
     images: [frshlyDispenser],
     tags: ["Computer Vision", "IoT", "Product Design"],
   },
@@ -122,9 +125,16 @@ function ProductCard({ product }: { product: typeof otherProducts[0] }) {
           </div>
         </div>
 
-        <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+        <p className="text-muted-foreground text-sm leading-relaxed mb-3">
           {product.description}
         </p>
+
+        {product.impact && (
+          <p className="text-sm font-medium text-primary mb-4 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+            {product.impact}
+          </p>
+        )}
 
         <div className="flex flex-wrap gap-2">
           {product.tags.map((tag) => (
@@ -265,9 +275,16 @@ function FeaturedProduct() {
           </h3>
           <p className="text-xl text-muted-foreground italic mb-4">"{featuredProduct.tagline}"</p>
           
-          <p className="text-muted-foreground leading-relaxed mb-6">
+          <p className="text-muted-foreground leading-relaxed mb-4">
             {featuredProduct.description}
           </p>
+
+          {featuredProduct.impact && (
+            <p className="text-base font-semibold text-primary mb-6 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              {featuredProduct.impact}
+            </p>
+          )}
 
           {/* Features grid */}
           <div className="grid sm:grid-cols-2 gap-4 mb-6">
