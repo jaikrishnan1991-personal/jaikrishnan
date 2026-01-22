@@ -103,6 +103,7 @@ export const portfolioData: PortfolioData = {
         "Value Proposition Design",
         "Opportunity Sizing",
         "Product Vision",
+        "Product Lifecycle",
       ],
     },
     {
@@ -116,6 +117,9 @@ export const portfolioData: PortfolioData = {
         "Trade-off Analysis",
         "Roadmapping",
         "Prioritization (RICE)",
+        "AI Product Management",
+        "GenAI Product Management",
+        "Technical Product Management",
       ],
     },
     {
@@ -138,6 +142,10 @@ export const portfolioData: PortfolioData = {
         "Feedback-driven Iteration",
         "Design-for-Scale",
         "Reliability & Maintainability",
+        "Scrum",
+        "Waterfall",
+        "Agile",
+        "Project Management",
       ],
     },
     {
