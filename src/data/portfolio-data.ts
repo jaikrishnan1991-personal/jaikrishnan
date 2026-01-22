@@ -86,7 +86,7 @@ export const portfolioData: PortfolioData = {
     phone: "+91 9840984314",
     email: "jaikrishnan1991@gmail.com",
     linkedin: "https://linkedin.com/in/jaikrishnanganeshan",
-    resumeUrl: "/resume.pdf",
+    resumeUrl: "https://drive.google.com/uc?export=download&id=1bF8osV9ij_C_VC8O7_B4H6z7WdArGfRN",
   },
 
   philosophy: [
