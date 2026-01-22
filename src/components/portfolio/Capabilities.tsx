@@ -140,10 +140,10 @@ function FlipCard({ category, index }: { category: CapabilityCategory; index: nu
 
         {/* Back of card */}
         <div
-          className="absolute inset-0 rounded-2xl border border-border/50 bg-card p-6 shadow-lg backface-hidden overflow-y-auto"
+          className="absolute inset-0 rounded-2xl border border-border/50 bg-card shadow-lg backface-hidden flex flex-col"
           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
         >
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between p-6 pb-2">
             <h3 className="font-display text-lg font-bold text-foreground">
               {category.title}
             </h3>
@@ -152,17 +152,19 @@ function FlipCard({ category, index }: { category: CapabilityCategory; index: nu
             </div>
           </div>
           
-          <AnimatePresence>
-            {isFlipped && (
-              <div className="space-y-1">
-                {category.skills.map((skill, idx) => (
-                  <SkillBar key={skill} skill={skill} delay={idx * 0.05} />
-                ))}
-              </div>
-            )}
-          </AnimatePresence>
+          <div className="flex-1 overflow-y-auto px-6 pb-2">
+            <AnimatePresence>
+              {isFlipped && (
+                <div className="space-y-1">
+                  {category.skills.map((skill, idx) => (
+                    <SkillBar key={skill} skill={skill} delay={idx * 0.05} />
+                  ))}
+                </div>
+              )}
+            </AnimatePresence>
+          </div>
           
-          <div className="absolute bottom-4 left-6 right-6 flex items-center justify-center gap-2 text-xs text-muted-foreground">
+          <div className="p-4 bg-card border-t border-border/30 rounded-b-2xl flex items-center justify-center gap-2 text-xs text-muted-foreground">
             <RotateCcw className="w-3 h-3" />
             Click to flip back
           </div>
