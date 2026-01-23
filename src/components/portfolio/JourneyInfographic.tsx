@@ -5,7 +5,7 @@ const journeyMilestones = [
   {
     year: "2010",
     title: "Engineering Foundation",
-    subtitle: "India & Germany",
+    subtitle: "India & Sweden",
     description: "Deep grounding in electro-mechanical systems",
     icon: Cpu,
     side: "left" as const,
@@ -32,22 +32,14 @@ const journeyMilestones = [
     subtitle: "IN 365893",
     description: "Automated Food Processor innovation",
     icon: Award,
-    side: "right" as const,
-  },
-  {
-    year: "2023",
-    title: "Strategic Leadership",
-    subtitle: "CTO & Solution Leader",
-    description: "AI-native architecture & robotics systems",
-    icon: Globe,
     side: "left" as const,
   },
   {
     year: "Present",
-    title: "Product Architect",
-    subtitle: "Full-Stack Innovation",
-    description: "Leading end-to-end product development",
-    icon: Flag,
+    title: "CTO & Product Architect",
+    subtitle: "Strategic Leadership",
+    description: "AI-native architecture & robotics systems",
+    icon: Globe,
     side: "right" as const,
   },
 ];
@@ -142,14 +134,13 @@ function MilestoneMarker({ milestone, index }: { milestone: typeof journeyMilest
   const IconComponent = milestone.icon;
   const isLeft = milestone.side === "left";
   
-  // Position calculations for the winding road
+  // Position calculations for the winding road (5 milestones)
   const positions = [
     { top: "8%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
-    { top: "20%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
-    { top: "35%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
-    { top: "50%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
-    { top: "65%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
-    { top: "80%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
+    { top: "22%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
+    { top: "40%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
+    { top: "58%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
+    { top: "78%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
   ];
 
   const pos = positions[index] || positions[0];
