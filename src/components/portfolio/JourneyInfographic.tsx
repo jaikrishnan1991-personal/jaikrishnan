@@ -136,13 +136,14 @@ function MilestoneMarker({ milestone, index }: { milestone: typeof journeyMilest
   const isCenter = milestone.side === "center";
   
   // Position calculations for the winding road (5 milestones)
-  // Road curves: starts center, goes left, then right, then left, then right
+  // Road SVG path: M 200 0 → curves to 100 at y=130 → curves to 300 at y=280 → etc.
+  // ViewBox is 400x800, so x=100 is 25%, x=200 is 50%, x=300 is 75%
   const roadPositions = [
-    { top: "10%", centerX: "25%" },   // First curve - left side of road
-    { top: "24%", centerX: "70%" },   // Second curve - right side of road
+    { top: "12%", centerX: "50%" },   // Near start - road is at center going to first curve
+    { top: "28%", centerX: "75%" },   // Second position - road has curved to right side
     { top: "42%", centerX: "25%" },   // Third curve - left side of road
     { top: "60%", centerX: "25%" },   // Fourth position - left side
-    { top: "80%", centerX: "70%" },   // Fifth curve - right side of road
+    { top: "80%", centerX: "75%" },   // Fifth curve - right side of road
   ];
   
   const sidePositions = [
