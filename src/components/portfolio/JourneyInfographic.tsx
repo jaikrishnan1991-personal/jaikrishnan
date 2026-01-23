@@ -8,7 +8,6 @@ const journeyMilestones = [
     subtitle: "India & Sweden",
     description: "Deep grounding in electro-mechanical systems",
     icon: Cpu,
-    side: "center" as const,
   },
   {
     year: "2014",
@@ -16,7 +15,6 @@ const journeyMilestones = [
     subtitle: "Sweden",
     description: "Advanced robotics & automation",
     icon: GraduationCap,
-    side: "center" as const,
   },
   {
     year: "2018",
@@ -24,7 +22,6 @@ const journeyMilestones = [
     subtitle: "Deep-Tech Startup",
     description: "Autonomous IoT cooking system from scratch",
     icon: ChefHat,
-    side: "left" as const,
   },
   {
     year: "2021",
@@ -32,7 +29,13 @@ const journeyMilestones = [
     subtitle: "IN 365893",
     description: "Automated Food Processor innovation",
     icon: Award,
-    side: "left" as const,
+  },
+  {
+    year: "2023",
+    title: "Solution Leader",
+    subtitle: "Strategic Role",
+    description: "Enterprise product strategy & delivery",
+    icon: Compass,
   },
   {
     year: "Present",
@@ -40,7 +43,6 @@ const journeyMilestones = [
     subtitle: "Strategic Leadership",
     description: "AI-native architecture & robotics systems",
     icon: Globe,
-    side: "right" as const,
   },
 ];
 
@@ -130,116 +132,61 @@ function RoadwayPath() {
   );
 }
 
+// Road positions calculated from SVG path: viewBox 400x800
+// Path: M 200 0 → curves to x=100 at y~130 → x=300 at y~280 → x=100 at y~440 → x=300 at y~600 → x=100 at y~760
+const roadPositions = [
+  { top: "10%", centerX: "37%", cardSide: "right" as const },   // 2010 - road heading left, card on right
+  { top: "22%", centerX: "50%", cardSide: "left" as const },    // 2014 - road at center, card on left
+  { top: "35%", centerX: "75%", cardSide: "left" as const },    // 2018 - road at right curve, card on left
+  { top: "55%", centerX: "25%", cardSide: "right" as const },   // 2021 - road at left curve, card on right
+  { top: "68%", centerX: "75%", cardSide: "left" as const },    // 2023 - road at right curve, card on left
+  { top: "88%", centerX: "25%", cardSide: "right" as const },   // Present - road at left curve, card on right
+];
+
 function MilestoneMarker({ milestone, index }: { milestone: typeof journeyMilestones[0]; index: number }) {
   const IconComponent = milestone.icon;
-  const isLeft = milestone.side === "left";
-  const isCenter = milestone.side === "center";
-  
-  // Position calculations for the winding road (5 milestones)
-  // Road SVG path: M 200 0 → curves to 100 at y=130 → curves to 300 at y=280 → etc.
-  // ViewBox is 400x800, so x=100 is 25%, x=200 is 50%, x=300 is 75%
-  const roadPositions = [
-    // NOTE: Center milestones must not set `style.transform` on a motion element,
-    // because Framer Motion owns the transform for animation. We position using a
-    // non-motion wrapper with CSS translate instead.
-    { top: "12%", centerX: "40%" },   // Near start - between center (50%) and first left curve (25%)
-    { top: "28%", centerX: "60%" },   // Rising into the right curve (toward 75%)
-    { top: "42%", centerX: "25%" },   // Third curve - left side of road
-    { top: "60%", centerX: "25%" },   // Fourth position - left side
-    { top: "80%", centerX: "75%" },   // Fifth curve - right side of road
-  ];
-  
-  const sidePositions = [
-    { top: "10%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
-    { top: "24%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
-    { top: "42%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
-    { top: "60%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
-    { top: "80%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
-  ];
-
-  const roadPos = roadPositions[index] || roadPositions[0];
-  const sidePos = sidePositions[index] || sidePositions[0];
-
-  // Center milestones are placed directly on the road
-  if (isCenter) {
-    return (
-      <div
-        className="absolute flex flex-col items-center"
-        style={{ top: roadPos.top, left: roadPos.centerX }}
-      >
-        <motion.div
-          initial={{ opacity: 0, scale: 0, y: 30 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 + index * 0.2 }}
-          className="flex flex-col items-center -translate-x-1/2"
-        >
-          {/* Milestone pin on road */}
-          <motion.div whileHover={{ scale: 1.2 }} className="relative z-10">
-            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30">
-              <IconComponent className="w-6 h-6 text-white" />
-            </div>
-            <MapPin className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 text-primary" />
-          </motion.div>
-
-          {/* Connector line down */}
-          <div className="w-0.5 h-6 bg-gradient-to-b from-primary to-transparent" />
-
-          {/* Milestone content card below */}
-          <div className="max-w-[180px] p-3 rounded-xl bg-card border border-border/50 shadow-lg text-center">
-            <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-primary/20 text-primary">
-              {milestone.year}
-            </span>
-            <h4 className="font-display text-sm font-bold text-foreground leading-tight mt-1">
-              {milestone.title}
-            </h4>
-            <p className="text-[10px] text-primary font-medium">{milestone.subtitle}</p>
-            <p className="text-[10px] text-muted-foreground mt-1 leading-tight">{milestone.description}</p>
-          </div>
-        </motion.div>
-      </div>
-    );
-  }
+  const pos = roadPositions[index] || roadPositions[0];
+  const isCardLeft = pos.cardSide === "left";
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0, x: isLeft ? -50 : 50 }}
-      whileInView={{ opacity: 1, scale: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: 0.3 + index * 0.2 }}
-      className={`absolute flex items-center gap-3 ${isLeft ? "flex-row" : "flex-row-reverse"}`}
-      style={{ top: sidePos.top, left: sidePos.left, right: sidePos.right }}
+    <div
+      className="absolute"
+      style={{ top: pos.top, left: pos.centerX }}
     >
-      {/* Milestone content card */}
-      <div className={`max-w-[180px] p-3 rounded-xl bg-card border border-border/50 shadow-lg ${isLeft ? "text-left" : "text-right"}`}>
-        <div className={`flex items-center gap-2 mb-1 ${isLeft ? "" : "flex-row-reverse"}`}>
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.3 + index * 0.15 }}
+        className={`flex items-center gap-3 -translate-x-1/2 ${isCardLeft ? "flex-row-reverse" : "flex-row"}`}
+      >
+        {/* Content card - positioned to side of pin */}
+        <div className={`max-w-[160px] p-3 rounded-xl bg-card border border-border/50 shadow-lg ${isCardLeft ? "text-right" : "text-left"}`}>
           <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-primary/20 text-primary">
             {milestone.year}
           </span>
+          <h4 className="font-display text-sm font-bold text-foreground leading-tight mt-1">
+            {milestone.title}
+          </h4>
+          <p className="text-[10px] text-primary font-medium">{milestone.subtitle}</p>
+          <p className="text-[10px] text-muted-foreground mt-1 leading-tight">{milestone.description}</p>
         </div>
-        <h4 className="font-display text-sm font-bold text-foreground leading-tight">
-          {milestone.title}
-        </h4>
-        <p className="text-[10px] text-primary font-medium">{milestone.subtitle}</p>
-        <p className="text-[10px] text-muted-foreground mt-1 leading-tight">
-          {milestone.description}
-        </p>
-      </div>
 
-      {/* Connector line */}
-      <div className={`w-8 h-0.5 bg-gradient-to-r ${isLeft ? "from-primary to-transparent" : "from-transparent to-primary"}`} />
+        {/* Connector line */}
+        <div className={`w-6 h-0.5 bg-gradient-to-r ${isCardLeft ? "from-transparent to-primary" : "from-primary to-transparent"}`} />
 
-      {/* Milestone pin */}
-      <motion.div
-        whileHover={{ scale: 1.2 }}
-        className="relative"
-      >
-        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30">
-          <IconComponent className="w-5 h-5 text-white" />
-        </div>
-        <MapPin className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 text-primary" />
+        {/* Milestone pin - centered on road dashes */}
+        <motion.div
+          whileHover={{ scale: 1.15 }}
+          className="relative z-10 flex-shrink-0"
+        >
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30">
+            <IconComponent className="w-5 h-5 text-white" />
+          </div>
+          <MapPin className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 text-primary" />
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -264,7 +211,7 @@ export function JourneyInfographic() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
         {/* Left: Roadway Timeline */}
         <div className="lg:col-span-2">
-          <div className="relative h-[700px] md:h-[750px]">
+          <div className="relative h-[800px] md:h-[850px]">
             {/* Roadway SVG */}
             <RoadwayPath />
 
