@@ -139,8 +139,11 @@ function MilestoneMarker({ milestone, index }: { milestone: typeof journeyMilest
   // Road SVG path: M 200 0 → curves to 100 at y=130 → curves to 300 at y=280 → etc.
   // ViewBox is 400x800, so x=100 is 25%, x=200 is 50%, x=300 is 75%
   const roadPositions = [
-    { top: "12%", centerX: "50%" },   // Near start - road is at center going to first curve
-    { top: "28%", centerX: "75%" },   // Second position - road has curved to right side
+    // NOTE: Center milestones must not set `style.transform` on a motion element,
+    // because Framer Motion owns the transform for animation. We position using a
+    // non-motion wrapper with CSS translate instead.
+    { top: "12%", centerX: "40%" },   // Near start - between center (50%) and first left curve (25%)
+    { top: "28%", centerX: "60%" },   // Rising into the right curve (toward 75%)
     { top: "42%", centerX: "25%" },   // Third curve - left side of road
     { top: "60%", centerX: "25%" },   // Fourth position - left side
     { top: "80%", centerX: "75%" },   // Fifth curve - right side of road
@@ -160,42 +163,41 @@ function MilestoneMarker({ milestone, index }: { milestone: typeof journeyMilest
   // Center milestones are placed directly on the road
   if (isCenter) {
     return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0, y: 30 }}
-        whileInView={{ opacity: 1, scale: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.3 + index * 0.2 }}
+      <div
         className="absolute flex flex-col items-center"
-        style={{ top: roadPos.top, left: roadPos.centerX, transform: "translateX(-50%)" }}
+        style={{ top: roadPos.top, left: roadPos.centerX }}
       >
-        {/* Milestone pin on road */}
         <motion.div
-          whileHover={{ scale: 1.2 }}
-          className="relative z-10"
+          initial={{ opacity: 0, scale: 0, y: 30 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 + index * 0.2 }}
+          className="flex flex-col items-center -translate-x-1/2"
         >
-          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30">
-            <IconComponent className="w-6 h-6 text-white" />
+          {/* Milestone pin on road */}
+          <motion.div whileHover={{ scale: 1.2 }} className="relative z-10">
+            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30">
+              <IconComponent className="w-6 h-6 text-white" />
+            </div>
+            <MapPin className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 text-primary" />
+          </motion.div>
+
+          {/* Connector line down */}
+          <div className="w-0.5 h-6 bg-gradient-to-b from-primary to-transparent" />
+
+          {/* Milestone content card below */}
+          <div className="max-w-[180px] p-3 rounded-xl bg-card border border-border/50 shadow-lg text-center">
+            <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-primary/20 text-primary">
+              {milestone.year}
+            </span>
+            <h4 className="font-display text-sm font-bold text-foreground leading-tight mt-1">
+              {milestone.title}
+            </h4>
+            <p className="text-[10px] text-primary font-medium">{milestone.subtitle}</p>
+            <p className="text-[10px] text-muted-foreground mt-1 leading-tight">{milestone.description}</p>
           </div>
-          <MapPin className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 text-primary" />
         </motion.div>
-
-        {/* Connector line down */}
-        <div className="w-0.5 h-6 bg-gradient-to-b from-primary to-transparent" />
-
-        {/* Milestone content card below */}
-        <div className="max-w-[180px] p-3 rounded-xl bg-card border border-border/50 shadow-lg text-center">
-          <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-primary/20 text-primary">
-            {milestone.year}
-          </span>
-          <h4 className="font-display text-sm font-bold text-foreground leading-tight mt-1">
-            {milestone.title}
-          </h4>
-          <p className="text-[10px] text-primary font-medium">{milestone.subtitle}</p>
-          <p className="text-[10px] text-muted-foreground mt-1 leading-tight">
-            {milestone.description}
-          </p>
-        </div>
-      </motion.div>
+      </div>
     );
   }
 
