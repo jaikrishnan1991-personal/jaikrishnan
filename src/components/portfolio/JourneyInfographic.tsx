@@ -1,6 +1,10 @@
+import { useRef, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Cpu, ChefHat, Globe, Compass, Boxes, Brain, GraduationCap, Award, Lightbulb, MapPin, Flag } from "lucide-react";
+import { usePathPositions } from "@/hooks/use-path-positions";
 
+// Timeline spans from 2010 to 2024 (14 years)
+// t values are year-proportional: (year - 2010) / 14
 const journeyMilestones = [
   {
     year: "2010",
@@ -8,6 +12,7 @@ const journeyMilestones = [
     subtitle: "India & Sweden",
     description: "Deep grounding in electro-mechanical systems",
     icon: Cpu,
+    t: 0.05, // Slight offset from start for visual clarity
   },
   {
     year: "2014",
@@ -15,6 +20,7 @@ const journeyMilestones = [
     subtitle: "Sweden",
     description: "Advanced robotics & automation",
     icon: GraduationCap,
+    t: 4 / 14, // ~0.286
   },
   {
     year: "2018",
@@ -22,6 +28,7 @@ const journeyMilestones = [
     subtitle: "Deep-Tech Startup",
     description: "Autonomous IoT cooking system from scratch",
     icon: ChefHat,
+    t: 8 / 14, // ~0.571
   },
   {
     year: "2021",
@@ -29,6 +36,7 @@ const journeyMilestones = [
     subtitle: "IN 365893",
     description: "Automated Food Processor innovation",
     icon: Award,
+    t: 11 / 14, // ~0.786
   },
   {
     year: "2023",
@@ -36,6 +44,7 @@ const journeyMilestones = [
     subtitle: "Strategic Role",
     description: "Enterprise product strategy & delivery",
     icon: Compass,
+    t: 13 / 14, // ~0.929
   },
   {
     year: "Present",
@@ -43,6 +52,7 @@ const journeyMilestones = [
     subtitle: "Strategic Leadership",
     description: "AI-native architecture & robotics systems",
     icon: Globe,
+    t: 0.98, // Slight offset from end for visual clarity
   },
 ];
 
@@ -64,22 +74,90 @@ const coreCapabilities = [
   },
 ];
 
-function RoadwayPath() {
+// The road path definition - used for both rendering and position calculations
+const ROAD_PATH = `M 200 40 
+   C 200 90, 80 120, 80 180
+   C 80 240, 320 300, 320 380
+   C 320 460, 80 520, 80 600
+   C 80 680, 320 740, 320 760`;
+
+const VIEWBOX_WIDTH = 400;
+const VIEWBOX_HEIGHT = 800;
+
+interface MilestoneMarkerProps {
+  milestone: typeof journeyMilestones[0];
+  position: { x: number; y: number };
+  index: number;
+}
+
+function MilestoneMarker({ milestone, position, index }: MilestoneMarkerProps) {
+  const IconComponent = milestone.icon;
+  // Place card on opposite side of where the road curves
+  const isCardLeft = position.x > 50;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.3 + index * 0.15 }}
+      className="absolute -translate-x-1/2 -translate-y-1/2"
+      style={{
+        left: `${position.x}%`,
+        top: `${position.y}%`,
+      }}
+    >
+      <div className={`flex items-center gap-2 ${isCardLeft ? "flex-row-reverse" : "flex-row"}`}>
+        {/* Content card */}
+        <div 
+          className={`w-[140px] md:w-[160px] p-2.5 md:p-3 rounded-xl bg-card border border-border/50 shadow-lg ${
+            isCardLeft ? "text-right" : "text-left"
+          }`}
+        >
+          <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-primary/20 text-primary">
+            {milestone.year}
+          </span>
+          <h4 className="font-display text-xs md:text-sm font-bold text-foreground leading-tight mt-1">
+            {milestone.title}
+          </h4>
+          <p className="text-[10px] text-primary font-medium">{milestone.subtitle}</p>
+          <p className="text-[9px] md:text-[10px] text-muted-foreground mt-1 leading-tight">
+            {milestone.description}
+          </p>
+        </div>
+
+        {/* Connector line */}
+        <div 
+          className={`w-4 md:w-6 h-0.5 bg-gradient-to-r ${
+            isCardLeft ? "from-transparent to-primary" : "from-primary to-transparent"
+          }`} 
+        />
+
+        {/* Milestone pin - centered exactly on the road */}
+        <motion.div
+          whileHover={{ scale: 1.15 }}
+          className="relative z-10 flex-shrink-0"
+        >
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30">
+            <IconComponent className="w-4 h-4 md:w-5 md:h-5 text-white" />
+          </div>
+          <MapPin className="absolute -bottom-1.5 md:-bottom-2 left-1/2 -translate-x-1/2 w-3 h-3 md:w-4 md:h-4 text-primary" />
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
+function RoadwayPath({ pathRef }: { pathRef: React.RefObject<SVGPathElement> }) {
   return (
     <svg
       className="absolute inset-0 w-full h-full pointer-events-none"
-      viewBox="0 0 400 800"
-      preserveAspectRatio="xMidYMid slice"
+      viewBox={`0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`}
+      preserveAspectRatio="xMidYMid meet"
     >
       {/* Road shadow */}
       <motion.path
-        d="M 200 0 
-           C 200 50, 100 80, 100 130
-           C 100 180, 300 220, 300 280
-           C 300 340, 100 380, 100 440
-           C 100 500, 300 540, 300 600
-           C 300 660, 100 700, 100 760
-           C 100 790, 200 800, 200 800"
+        d={ROAD_PATH}
         fill="none"
         stroke="hsl(var(--muted))"
         strokeWidth="50"
@@ -89,16 +167,10 @@ function RoadwayPath() {
         viewport={{ once: true }}
         transition={{ duration: 2, ease: "easeInOut" }}
       />
-      
+
       {/* Main road */}
       <motion.path
-        d="M 200 0 
-           C 200 50, 100 80, 100 130
-           C 100 180, 300 220, 300 280
-           C 300 340, 100 380, 100 440
-           C 100 500, 300 540, 300 600
-           C 300 660, 100 700, 100 760
-           C 100 790, 200 800, 200 800"
+        d={ROAD_PATH}
         fill="none"
         stroke="hsl(var(--secondary))"
         strokeWidth="40"
@@ -108,16 +180,11 @@ function RoadwayPath() {
         viewport={{ once: true }}
         transition={{ duration: 2, ease: "easeInOut" }}
       />
-      
-      {/* Road center dashes */}
+
+      {/* Road center dashes - this is the path we measure against */}
       <motion.path
-        d="M 200 0 
-           C 200 50, 100 80, 100 130
-           C 100 180, 300 220, 300 280
-           C 300 340, 100 380, 100 440
-           C 100 500, 300 540, 300 600
-           C 300 660, 100 700, 100 760
-           C 100 790, 200 800, 200 800"
+        ref={pathRef}
+        d={ROAD_PATH}
         fill="none"
         stroke="hsl(var(--primary))"
         strokeWidth="4"
@@ -132,65 +199,15 @@ function RoadwayPath() {
   );
 }
 
-// Road positions calculated from SVG path: viewBox 400x800
-// Path: M 200 0 → curves to x=100 at y~130 → x=300 at y~280 → x=100 at y~440 → x=300 at y~600 → x=100 at y~760
-const roadPositions = [
-  { top: "10%", centerX: "37%", cardSide: "right" as const },   // 2010 - road heading left, card on right
-  { top: "22%", centerX: "50%", cardSide: "left" as const },    // 2014 - road at center, card on left
-  { top: "35%", centerX: "75%", cardSide: "left" as const },    // 2018 - road at right curve, card on left
-  { top: "55%", centerX: "25%", cardSide: "right" as const },   // 2021 - road at left curve, card on right
-  { top: "68%", centerX: "75%", cardSide: "left" as const },    // 2023 - road at right curve, card on left
-  { top: "88%", centerX: "25%", cardSide: "right" as const },   // Present - road at left curve, card on right
-];
-
-function MilestoneMarker({ milestone, index }: { milestone: typeof journeyMilestones[0]; index: number }) {
-  const IconComponent = milestone.icon;
-  const pos = roadPositions[index] || roadPositions[0];
-  const isCardLeft = pos.cardSide === "left";
-
-  return (
-    <div
-      className="absolute"
-      style={{ top: pos.top, left: pos.centerX }}
-    >
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.3 + index * 0.15 }}
-        className={`flex items-center gap-3 -translate-x-1/2 ${isCardLeft ? "flex-row-reverse" : "flex-row"}`}
-      >
-        {/* Content card - positioned to side of pin */}
-        <div className={`max-w-[160px] p-3 rounded-xl bg-card border border-border/50 shadow-lg ${isCardLeft ? "text-right" : "text-left"}`}>
-          <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-primary/20 text-primary">
-            {milestone.year}
-          </span>
-          <h4 className="font-display text-sm font-bold text-foreground leading-tight mt-1">
-            {milestone.title}
-          </h4>
-          <p className="text-[10px] text-primary font-medium">{milestone.subtitle}</p>
-          <p className="text-[10px] text-muted-foreground mt-1 leading-tight">{milestone.description}</p>
-        </div>
-
-        {/* Connector line */}
-        <div className={`w-6 h-0.5 bg-gradient-to-r ${isCardLeft ? "from-transparent to-primary" : "from-primary to-transparent"}`} />
-
-        {/* Milestone pin - centered on road dashes */}
-        <motion.div
-          whileHover={{ scale: 1.15 }}
-          className="relative z-10 flex-shrink-0"
-        >
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30">
-            <IconComponent className="w-5 h-5 text-white" />
-          </div>
-          <MapPin className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 text-primary" />
-        </motion.div>
-      </motion.div>
-    </div>
-  );
-}
-
 export function JourneyInfographic() {
+  const pathRef = useRef<SVGPathElement>(null);
+  
+  // Extract t values from milestones
+  const tValues = useMemo(() => journeyMilestones.map(m => m.t), []);
+  
+  // Get computed positions along the path
+  const positions = usePathPositions(pathRef, tValues, VIEWBOX_WIDTH, VIEWBOX_HEIGHT);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -211,13 +228,22 @@ export function JourneyInfographic() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
         {/* Left: Roadway Timeline */}
         <div className="lg:col-span-2">
-          <div className="relative h-[800px] md:h-[850px]">
+          {/* Fixed aspect ratio container matching the viewBox */}
+          <div 
+            className="relative w-full"
+            style={{ aspectRatio: `${VIEWBOX_WIDTH} / ${VIEWBOX_HEIGHT}` }}
+          >
             {/* Roadway SVG */}
-            <RoadwayPath />
+            <RoadwayPath pathRef={pathRef} />
 
-            {/* Milestone markers */}
-            {journeyMilestones.map((milestone, index) => (
-              <MilestoneMarker key={index} milestone={milestone} index={index} />
+            {/* Milestone markers - only render when positions are computed */}
+            {positions.length > 0 && journeyMilestones.map((milestone, index) => (
+              <MilestoneMarker
+                key={index}
+                milestone={milestone}
+                position={positions[index]}
+                index={index}
+              />
             ))}
 
             {/* Start indicator */}
@@ -226,7 +252,8 @@ export function JourneyInfographic() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="absolute top-0 left-1/2 -translate-x-1/2 flex flex-col items-center"
+              className="absolute flex flex-col items-center"
+              style={{ left: "50%", top: "2%", transform: "translateX(-50%)" }}
             >
               <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center shadow-lg">
                 <Flag className="w-4 h-4 text-white" />
