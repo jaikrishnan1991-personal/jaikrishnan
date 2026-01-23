@@ -8,7 +8,7 @@ const journeyMilestones = [
     subtitle: "India & Sweden",
     description: "Deep grounding in electro-mechanical systems",
     icon: Cpu,
-    side: "left" as const,
+    side: "center" as const,
   },
   {
     year: "2014",
@@ -16,7 +16,7 @@ const journeyMilestones = [
     subtitle: "Sweden",
     description: "Advanced robotics & automation",
     icon: GraduationCap,
-    side: "left" as const,
+    side: "center" as const,
   },
   {
     year: "2018",
@@ -133,17 +133,70 @@ function RoadwayPath() {
 function MilestoneMarker({ milestone, index }: { milestone: typeof journeyMilestones[0]; index: number }) {
   const IconComponent = milestone.icon;
   const isLeft = milestone.side === "left";
+  const isCenter = milestone.side === "center";
   
   // Position calculations for the winding road (5 milestones)
-  const positions = [
-    { top: "8%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
-    { top: "22%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
-    { top: "40%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
-    { top: "58%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
-    { top: "78%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
+  // Road curves: starts center, goes left, then right, then left, then right
+  const roadPositions = [
+    { top: "10%", centerX: "25%" },   // First curve - left side of road
+    { top: "24%", centerX: "70%" },   // Second curve - right side of road
+    { top: "42%", centerX: "25%" },   // Third curve - left side of road
+    { top: "60%", centerX: "25%" },   // Fourth position - left side
+    { top: "80%", centerX: "70%" },   // Fifth curve - right side of road
+  ];
+  
+  const sidePositions = [
+    { top: "10%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
+    { top: "24%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
+    { top: "42%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
+    { top: "60%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
+    { top: "80%", left: isLeft ? "5%" : "auto", right: isLeft ? "auto" : "5%" },
   ];
 
-  const pos = positions[index] || positions[0];
+  const roadPos = roadPositions[index] || roadPositions[0];
+  const sidePos = sidePositions[index] || sidePositions[0];
+
+  // Center milestones are placed directly on the road
+  if (isCenter) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0, y: 30 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.3 + index * 0.2 }}
+        className="absolute flex flex-col items-center"
+        style={{ top: roadPos.top, left: roadPos.centerX, transform: "translateX(-50%)" }}
+      >
+        {/* Milestone pin on road */}
+        <motion.div
+          whileHover={{ scale: 1.2 }}
+          className="relative z-10"
+        >
+          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30">
+            <IconComponent className="w-6 h-6 text-white" />
+          </div>
+          <MapPin className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 text-primary" />
+        </motion.div>
+
+        {/* Connector line down */}
+        <div className="w-0.5 h-6 bg-gradient-to-b from-primary to-transparent" />
+
+        {/* Milestone content card below */}
+        <div className="max-w-[180px] p-3 rounded-xl bg-card border border-border/50 shadow-lg text-center">
+          <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-primary/20 text-primary">
+            {milestone.year}
+          </span>
+          <h4 className="font-display text-sm font-bold text-foreground leading-tight mt-1">
+            {milestone.title}
+          </h4>
+          <p className="text-[10px] text-primary font-medium">{milestone.subtitle}</p>
+          <p className="text-[10px] text-muted-foreground mt-1 leading-tight">
+            {milestone.description}
+          </p>
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
@@ -152,7 +205,7 @@ function MilestoneMarker({ milestone, index }: { milestone: typeof journeyMilest
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.3 + index * 0.2 }}
       className={`absolute flex items-center gap-3 ${isLeft ? "flex-row" : "flex-row-reverse"}`}
-      style={{ top: pos.top, left: pos.left, right: pos.right }}
+      style={{ top: sidePos.top, left: sidePos.left, right: sidePos.right }}
     >
       {/* Milestone content card */}
       <div className={`max-w-[180px] p-3 rounded-xl bg-card border border-border/50 shadow-lg ${isLeft ? "text-left" : "text-right"}`}>
