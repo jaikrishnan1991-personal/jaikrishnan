@@ -16,7 +16,7 @@ const journeyMilestones = [
     subtitle: "Sweden",
     description: "Advanced robotics & automation",
     icon: GraduationCap,
-    side: "right" as const,
+    side: "left" as const,
   },
   {
     year: "2018",
