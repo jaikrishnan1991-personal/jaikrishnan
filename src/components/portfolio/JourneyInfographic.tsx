@@ -155,6 +155,15 @@ function RoadwayPath({ pathRef }: { pathRef: React.RefObject<SVGPathElement> }) 
       viewBox={`0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`}
       preserveAspectRatio="xMidYMid meet"
     >
+      {/* Hidden path for measurements - NOT animated */}
+      <path
+        ref={pathRef}
+        d={ROAD_PATH}
+        fill="none"
+        stroke="transparent"
+        strokeWidth="0"
+      />
+
       {/* Road shadow */}
       <motion.path
         d={ROAD_PATH}
@@ -181,9 +190,8 @@ function RoadwayPath({ pathRef }: { pathRef: React.RefObject<SVGPathElement> }) 
         transition={{ duration: 2, ease: "easeInOut" }}
       />
 
-      {/* Road center dashes - this is the path we measure against */}
+      {/* Road center dashes */}
       <motion.path
-        ref={pathRef}
         d={ROAD_PATH}
         fill="none"
         stroke="hsl(var(--primary))"
