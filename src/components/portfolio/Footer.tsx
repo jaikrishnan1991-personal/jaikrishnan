@@ -23,47 +23,49 @@ export function Footer() {
               Interested in discussing product strategy, startup ideas, or collaboration opportunities? I'd love to hear from you.
             </p>
             
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Button
-                asChild
-                size="lg"
-                className="rounded-full px-8 font-medium"
-              >
-                <a href={`mailto:${personal.email}`}>
-                  <Mail className="w-4 h-4 mr-2" />
-                  Send me an email
-                </a>
-              </Button>
-              
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <Button
+                  asChild
+                  size="lg"
+                  className="rounded-full px-8 font-medium"
+                >
+                  <a href={`mailto:${personal.email}`}>
+                    <Mail className="w-4 h-4 mr-2" />
+                    Send me an email
+                  </a>
+                </Button>
+                
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="rounded-full px-8 font-medium"
+                >
+                  <a href={personal.linkedin} target="_blank" rel="noopener noreferrer">
+                    <Linkedin className="w-4 h-4 mr-2" />
+                    View LinkedIn
+                  </a>
+                </Button>
+
+                <Button
+                  asChild
+                  variant="secondary"
+                  size="lg"
+                  className="rounded-full px-8 font-medium"
+                >
+                  <a href={personal.resumeUrl} target="_blank" rel="noopener noreferrer">
+                    <FileDown className="w-4 h-4 mr-2" />
+                    Download Resume
+                  </a>
+                </Button>
+              </div>
+
               <Button
                 asChild
                 variant="outline"
                 size="lg"
-                className="rounded-full px-8 font-medium"
-              >
-                <a href={personal.linkedin} target="_blank" rel="noopener noreferrer">
-                  <Linkedin className="w-4 h-4 mr-2" />
-                  View LinkedIn
-                </a>
-              </Button>
-
-              <Button
-                asChild
-                variant="secondary"
-                size="lg"
-                className="rounded-full px-8 font-medium"
-              >
-                <a href={personal.resumeUrl} target="_blank" rel="noopener noreferrer">
-                  <FileDown className="w-4 h-4 mr-2" />
-                  Download Resume
-                </a>
-              </Button>
-
-              <Button
-                asChild
-                variant="secondary"
-                size="lg"
-                className="rounded-full px-8 font-medium"
+                className="rounded-full px-8 font-medium border-primary/50 hover:bg-primary/10"
               >
                 <a href={personal.portfolioUrl} target="_blank" rel="noopener noreferrer">
                   <Presentation className="w-4 h-4 mr-2" />
