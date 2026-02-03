@@ -62,51 +62,53 @@ export function Hero() {
               </p>
 
               {/* CTA Buttons */}
-              <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 animate-fade-up delay-300">
-                <Button
-                  asChild
-                  size="lg"
-                  className="rounded-full px-8 font-medium"
-                >
-                  <a href={`mailto:${personal.email}`}>
-                    <Mail className="w-4 h-4 mr-2" />
-                    Get in Touch
-                  </a>
-                </Button>
-                
+              <div className="flex flex-col items-center md:items-start gap-4 animate-fade-up delay-300">
+                <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="rounded-full px-8 font-medium"
+                  >
+                    <a href={`mailto:${personal.email}`}>
+                      <Mail className="w-4 h-4 mr-2" />
+                      Get in Touch
+                    </a>
+                  </Button>
+                  
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="rounded-full px-8 font-medium"
+                  >
+                    <a href={personal.linkedin} target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="w-4 h-4 mr-2" />
+                      LinkedIn
+                    </a>
+                  </Button>
+
+                  <Button
+                    asChild
+                    variant="ghost"
+                    size="lg"
+                    className="rounded-full px-8 font-medium"
+                  >
+                    <a href={personal.resumeUrl} target="_blank" rel="noopener noreferrer">
+                      <FileDown className="w-4 h-4 mr-2" />
+                      Resume
+                    </a>
+                  </Button>
+                </div>
+
                 <Button
                   asChild
                   variant="outline"
                   size="lg"
-                  className="rounded-full px-8 font-medium"
-                >
-                  <a href={personal.linkedin} target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="w-4 h-4 mr-2" />
-                    LinkedIn
-                  </a>
-                </Button>
-
-                <Button
-                  asChild
-                  variant="ghost"
-                  size="lg"
-                  className="rounded-full px-8 font-medium"
-                >
-                  <a href={personal.resumeUrl} target="_blank" rel="noopener noreferrer">
-                    <FileDown className="w-4 h-4 mr-2" />
-                    Resume
-                  </a>
-                </Button>
-
-                <Button
-                  asChild
-                  variant="ghost"
-                  size="lg"
-                  className="rounded-full px-8 font-medium"
+                  className="rounded-full px-8 font-medium border-primary/50 hover:bg-primary/10"
                 >
                   <a href={personal.portfolioUrl} target="_blank" rel="noopener noreferrer">
                     <Presentation className="w-4 h-4 mr-2" />
-                    Portfolio
+                    View Portfolio
                   </a>
                 </Button>
               </div>
