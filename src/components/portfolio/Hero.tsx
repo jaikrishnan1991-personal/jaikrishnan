@@ -1,4 +1,4 @@
-import { ArrowDown, Mail, Linkedin, FileDown } from "lucide-react";
+import { ArrowDown, Mail, Linkedin, FileDown, Presentation } from "lucide-react";
 import { portfolioData } from "@/data/portfolio-data";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -95,6 +95,18 @@ export function Hero() {
                   <a href={personal.resumeUrl} target="_blank" rel="noopener noreferrer">
                     <FileDown className="w-4 h-4 mr-2" />
                     Resume
+                  </a>
+                </Button>
+
+                <Button
+                  asChild
+                  variant="ghost"
+                  size="lg"
+                  className="rounded-full px-8 font-medium"
+                >
+                  <a href={personal.portfolioUrl} target="_blank" rel="noopener noreferrer">
+                    <Presentation className="w-4 h-4 mr-2" />
+                    Portfolio
                   </a>
                 </Button>
               </div>

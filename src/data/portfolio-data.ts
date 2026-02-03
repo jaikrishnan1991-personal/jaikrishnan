@@ -14,6 +14,7 @@ export interface PersonalInfo {
   email: string;
   linkedin: string;
   resumeUrl: string;
+  portfolioUrl: string;
 }
 
 export interface PhilosophyItem {
@@ -87,6 +88,7 @@ export const portfolioData: PortfolioData = {
     email: "jaikrishnan1991@gmail.com",
     linkedin: "https://linkedin.com/in/jaikrishnanganeshan",
     resumeUrl: "https://drive.google.com/uc?export=download&id=1bF8osV9ij_C_VC8O7_B4H6z7WdArGfRN",
+    portfolioUrl: "https://docs.google.com/presentation/d/13UhZUHKB1PQhKN6eRoJE7jubAwtRd75e14L_6Z4uimU/export/pdf",
   },
 
   philosophy: [
