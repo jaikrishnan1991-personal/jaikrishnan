@@ -9,8 +9,15 @@ export default defineTool({
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => {
+    const site = "https://jaikrishnan.in";
+    const abs = (u: string) => (u.startsWith("/") ? site + u : u);
     const payload = {
-      personal: portfolioData.personal,
+      personal: {
+        ...portfolioData.personal,
+        website: site,
+        resumeUrl: abs(portfolioData.personal.resumeUrl),
+        portfolioUrl: abs(portfolioData.personal.portfolioUrl),
+      },
       philosophy: portfolioData.philosophy.map((p) => p.text),
       languages: portfolioData.languages,
     };
