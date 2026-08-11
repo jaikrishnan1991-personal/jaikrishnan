@@ -5,6 +5,8 @@
 // No code changes needed in components.
 // ============================================
 
+import resumeAsset from "@/assets/resume.pdf.asset.json";
+
 export interface PersonalInfo {
   name: string;
   title: string;
@@ -87,7 +89,7 @@ export const portfolioData: PortfolioData = {
     phone: "+91 9840984314",
     email: "jaikrishnan1991@gmail.com",
     linkedin: "https://linkedin.com/in/jaikrishnanganeshan",
-    resumeUrl: "https://drive.google.com/uc?export=download&id=1bF8osV9ij_C_VC8O7_B4H6z7WdArGfRN",
+    resumeUrl: resumeAsset.url,
     portfolioUrl: "https://docs.google.com/presentation/d/13UhZUHKB1PQhKN6eRoJE7jubAwtRd75e14L_6Z4uimU/export/pdf",
   },
 
@@ -167,6 +169,20 @@ export const portfolioData: PortfolioData = {
   ],
 
   experience: [
+    {
+      id: "evochef",
+      title: "Head of Product",
+      company: "EvoChef LLP",
+      location: "India",
+      period: "Apr 2026 – Present",
+      type: "leadership",
+      summary: "Owning an IP-led smart appliance portfolio and its connected-platform strategy.",
+      achievements: [
+        "Own the end-to-end lifecycle of an IP-led smart appliance portfolio — discovery, architecture, MVP validation, launch and scale-up — across mechanical, firmware, IoT, cloud, AI and UX layers.",
+        "Leading the shift from standalone appliances to a connected smart-kitchen ecosystem, turning telemetry into analytics, remote diagnostics and subscription monetisation.",
+        "Govern external engineering partners and the business-systems stack; support the founder on Series A positioning and international expansion.",
+      ],
+    },
     {
       id: "theknowledgehub",
       title: "Chief Technology Officer / Product Architect",
