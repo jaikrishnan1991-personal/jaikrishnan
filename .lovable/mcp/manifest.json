@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.2",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "jaikrishnan-s-portfolio",
+      "version": "0.1.0",
+      "title": "Jaikrishnan's Portfolio"
+    },
+    "tools": [
+      {
+        "name": "get_profile",
+        "title": "Get profile",
+        "description": "Get Jaikrishnan Ganeshan's public profile: name, title, tagline, location, contact links, resume and portfolio URLs, product philosophy and languages.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_experience",
+        "title": "List professional experience",
+        "description": "List Jaikrishnan's professional experience entries (company, role, period, summary and achievements). Optionally filter by company name.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "company": {
+              "description": "Optional case-insensitive substring to filter by company or role.",
+              "type": "string"
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_capabilities",
+        "title": "List capabilities",
+        "description": "List Jaikrishnan's product, hardware, platform and leadership capabilities grouped by category.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_credentials",
+        "title": "Get education, patents and innovations",
+        "description": "Get Jaikrishnan's education history, granted patents and notable technical innovations.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
