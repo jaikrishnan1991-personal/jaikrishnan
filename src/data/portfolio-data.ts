@@ -15,6 +15,7 @@ export interface PersonalInfo {
   phone: string;
   email: string;
   linkedin: string;
+  github: string;
   resumeUrl: string;
   portfolioUrl: string;
 }
@@ -89,6 +90,7 @@ export const portfolioData: PortfolioData = {
     phone: "+91 9840984314",
     email: "jaikrishnan1991@gmail.com",
     linkedin: "https://linkedin.com/in/jaikrishnanganeshan",
+    github: "https://github.com/jaikrishnan1991-personal",
     resumeUrl: resumeAsset.url,
     portfolioUrl: "https://docs.google.com/presentation/d/13UhZUHKB1PQhKN6eRoJE7jubAwtRd75e14L_6Z4uimU/export/pdf",
   },
