@@ -31,6 +31,7 @@ var portfolioData = {
     phone: "+91 9840984314",
     email: "jaikrishnan1991@gmail.com",
     linkedin: "https://linkedin.com/in/jaikrishnanganeshan",
+    github: "https://github.com/jaikrishnan1991-personal",
     resumeUrl: resume_pdf_asset_default.url,
     portfolioUrl: "https://docs.google.com/presentation/d/13UhZUHKB1PQhKN6eRoJE7jubAwtRd75e14L_6Z4uimU/export/pdf"
   },

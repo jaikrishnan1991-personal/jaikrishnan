@@ -1,4 +1,4 @@
-import { Mail, Linkedin, Phone, MapPin, ArrowUp, FileDown, Presentation } from "lucide-react";
+import { Mail, Linkedin, Phone, MapPin, ArrowUp, FileDown, Presentation, Github } from "lucide-react";
 import { portfolioData } from "@/data/portfolio-data";
 import { Button } from "@/components/ui/button";
 
@@ -61,17 +61,31 @@ export function Footer() {
                 </Button>
               </div>
 
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="rounded-full px-8 font-medium border-primary/50 hover:bg-primary/10"
-              >
-                <a href={personal.portfolioUrl} target="_blank" rel="noopener noreferrer">
-                  <Presentation className="w-4 h-4 mr-2" />
-                  Download Portfolio
-                </a>
-              </Button>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="rounded-full px-8 font-medium border-primary/50 hover:bg-primary/10"
+                >
+                  <a href={personal.portfolioUrl} target="_blank" rel="noopener noreferrer">
+                    <Presentation className="w-4 h-4 mr-2" />
+                    Download Portfolio
+                  </a>
+                </Button>
+
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="rounded-full px-8 font-medium"
+                >
+                  <a href={personal.github} target="_blank" rel="noopener noreferrer">
+                    <Github className="w-4 h-4 mr-2" />
+                    GitHub
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
 
